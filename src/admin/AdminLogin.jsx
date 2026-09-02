@@ -5,12 +5,14 @@ import { Helmet } from 'react-helmet-async'
 import { FiMail, FiLock, FiLogIn } from 'react-icons/fi'
 import { GiOpenBook } from 'react-icons/gi'
 import { signIn } from '../firebase/auth'
+import ForgotPasswordModal from './ForgotPasswordModal'
 import toast from 'react-hot-toast'
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [forgotOpen, setForgotOpen] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -80,7 +82,16 @@ export default function AdminLogin() {
 
               {/* Password */}
               <div className="input-float">
-                <label className="text-white/60">Password</label>
+                <div className="flex justify-between items-center mb-1">
+                  <label className="text-white/60 !mb-0">Password</label>
+                  <button
+                    type="button"
+                    onClick={() => setForgotOpen(true)}
+                    className="text-xs text-pink-400 hover:underline font-bold"
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
                 <div className="relative">
                   <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={16} />
                   <input
@@ -112,6 +123,8 @@ export default function AdminLogin() {
           </div>
         </motion.div>
       </div>
+
+      <ForgotPasswordModal isOpen={forgotOpen} onClose={() => setForgotOpen(false)} />
     </>
   )
 }

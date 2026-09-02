@@ -122,6 +122,28 @@ export const updateSettings = async (path, data) => {
   await update(ref(db, `settings/${path}`), data)
 }
 
+// ===== FEEDBACK / SUPPORT =====
+export const addFeedback = async (feedbackData) => {
+  if (!isAvailable()) {
+    const stored = JSON.parse(localStorage.getItem('kidsstory_support_messages') || '[]')
+    stored.push({ ...feedbackData, id: 'local-' + Date.now(), createdAt: Date.now() })
+    localStorage.setItem('kidsstory_support_messages', JSON.stringify(stored))
+    return 'local-' + Date.now()
+  }
+  try {
+    const feedbackRef = ref(db, 'feedback')
+    const newRef = push(feedbackRef)
+    await set(newRef, { ...feedbackData, id: newRef.key, createdAt: Date.now() })
+    return newRef.key
+  } catch (e) {
+    console.warn("addFeedback error, falling back to local:", e)
+    const stored = JSON.parse(localStorage.getItem('kidsstory_support_messages') || '[]')
+    stored.push({ ...feedbackData, id: 'local-' + Date.now(), createdAt: Date.now() })
+    localStorage.setItem('kidsstory_support_messages', JSON.stringify(stored))
+    return 'local-' + Date.now()
+  }
+}
+
 // ===== DEMO DATA (shown when Firebase not configured) =====
 function getDemoStories() {
   return [

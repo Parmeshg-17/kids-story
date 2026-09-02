@@ -2,7 +2,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   FiHome, FiPlusSquare, FiList, FiTag, FiShare2,
-  FiImage, FiDollarSign, FiLogOut, FiMenu, FiX
+  FiImage, FiDollarSign, FiLogOut, FiMenu, FiX, FiUser
 } from 'react-icons/fi'
 import { GiOpenBook } from 'react-icons/gi'
 import { signOut } from '../firebase/auth'
@@ -17,6 +17,7 @@ const NAV_ITEMS = [
   { to: '/admin/social', icon: FiShare2, label: 'Social Media' },
   { to: '/admin/homepage', icon: FiImage, label: 'Homepage' },
   { to: '/admin/ads', icon: FiDollarSign, label: 'Ads / AdSense' },
+  { to: '/admin/account', icon: FiUser, label: 'Account Settings' },
 ]
 
 export default function AdminLayout() {

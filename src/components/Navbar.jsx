@@ -34,6 +34,8 @@ export default function Navbar() {
     { to: '/', label: 'Home' },
     { to: '/stories', label: 'Stories' },
     { to: '/bookmarks', label: 'Bookmarks' },
+    { to: '/help', label: 'Help' },
+    { to: '/support', label: 'Support' },
   ]
 
   return (
